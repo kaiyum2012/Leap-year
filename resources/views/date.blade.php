@@ -4,11 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Coding Challenge : Kaiyum2012</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <!-- Custom libs -->
+        <script src="{{ asset('js/app.js') }}"> </script>
         <!-- Styles -->
         <style>
             html, body {
@@ -65,36 +67,42 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
                 <div class="title m-b-md">
                     Leap Year Coding Challenge
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div>
+                <form id="form">
+                    Start Date: <input type="date" id="startDate" />
+                    End Date: <input type="date" id="endDate"/>
+                    <br/>
+                    <input type="submit" text="Calculate"/>
+                    </form>
                 </div>
             </div>
         </div>
+
+        @if(config('app.env') == 'local')
+            <script src="http://localhost:35729/livereload.js"></script>
+        @endif
+        <script type="text/javascript">
+            $('#form').on('submit',function(event){
+                event.preventDefault();
+                let startDate = $('#startDate').val();
+                let endDate = $('#endDate').val();
+                $.ajax({
+                    url: "/date/calculate",
+                    type:"POST",
+                    data:{
+                        "_token": "{{ csrf_token() }}",
+                        sDate:startDate,
+                        eDate:endDate,
+                    },
+                    success:function(response){
+                        console.log(response);
+                    },
+                });
+            });
+        </script>
     </body>
 </html>
