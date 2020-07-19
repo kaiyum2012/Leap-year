@@ -34,6 +34,14 @@ class DateController extends Controller
             $result = new \stdClass;
             $result->success = true;
             $result->days = $x->calcDiffTotalDays();
+            $result->startDate = array(
+                'start_date' => $req->sDate,
+                'leap_year' => $start->isLeapYear()
+            );
+            $result->endDate = array(
+                'end_date' => $req->eDate,
+                'leap_year' => $end->isLeapYear()
+            );
         }
         
         return response(json_encode($result));
