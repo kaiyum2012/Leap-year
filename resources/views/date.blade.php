@@ -9,75 +9,36 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- Custom libs -->
+        <!-- Custom JS -->
         <script src="{{ asset('js/app.js') }}"> </script>
         <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="container flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    Leap Year Coding Challenge
+                    Coding Challenge
+                   <div class="sub-title" > Date Diff Calculator </div>
                 </div>
-                <div>
                 <form id="form">
-                    Start Date: <input type="date" id="startDate"/>
-                    End Date: <input type="date" id="endDate"/>
-                    <br/>
-                    <input type="submit" text="Calculate"/>
-                    </form>
+                    <div class="form-group">
+                    <label for="startDate">Start Date:</label> 
+                        <input type="date" id="startDate"/></br>
+                    </div>
+                    <div class="form-group">
+                    <label for="endDate"> End Date: </label>  
+                        <input type="date" id="endDate"/>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" text="Calculate"/>
+                    </div>
+                </form>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-auto">
+                        <div class="flash-message"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -100,7 +61,22 @@
                     },
                     success:function(response){
                         console.log(response);
+                        let result = JSON.parse(response);
+                        if(result['success']){
+                           $('div.flash-message').html("<p class='alert alert-success'> difference in days =" + result['days'] + "</p>");
+                        }
                     },
+                    error:function(response){
+                        // Default response HTTP 422 from laravel on form validation error
+                        if(response.status == 422){
+                            let x = JSON.parse(response.responseText);
+                            let errors = x['errors'];
+                            $('div.flash-message').html("")
+                            $.each(errors, function (key, value) {
+                                $('div.flash-message').append("<p class='alert alert-danger'>"+ value +"</p>");
+                            });
+                        }
+                    }
                 });
             });
         </script>

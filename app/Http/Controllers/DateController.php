@@ -7,6 +7,8 @@ use App\Http\Requests\DateDiffCalcRequest;
 use Carbon\Carbon;
 use App\Helper\DateCalculator;
 use App\Helper\Date;
+use Session;
+
 class DateController extends Controller
 {
     public function Calculate(DateDiffCalcRequest $req)
@@ -23,7 +25,8 @@ class DateController extends Controller
         {
             $result = new \stdClass;
             $result->success = false;
-            $result->error = $validator->errors();
+            $result->error = $validator->errors()->toArray();
+            Session::flash('error', $result->error);
         }else{
             $start = new Date($req->sDate);
             $end = new Date($req->eDate);
@@ -42,6 +45,7 @@ class DateController extends Controller
                 'end_date' => $req->eDate,
                 'leap_year' => $end->isLeapYear()
             );
+            Session::flash('success', "difference in days =" . $result->days);
         }
         
         return response(json_encode($result));
