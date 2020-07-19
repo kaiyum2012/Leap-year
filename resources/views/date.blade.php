@@ -73,7 +73,7 @@
                 </div>
                 <div>
                 <form id="form">
-                    Start Date: <input type="date" id="startDate" />
+                    Start Date: <input type="date" id="startDate"/>
                     End Date: <input type="date" id="endDate"/>
                     <br/>
                     <input type="submit" text="Calculate"/>
