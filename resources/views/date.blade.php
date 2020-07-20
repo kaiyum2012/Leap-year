@@ -33,6 +33,10 @@
                     </div>
                     <div class="form-group">
                         <input class="btn btn-primary" type="submit" text="Calculate"/>
+                        <a class="btn btn-outline-secondary" href="#" id="btn-date-history"> History </a>
+                    </div>
+                    <div class="form-group">
+                        
                     </div>
                 </form>
                 <div class="row justify-content-md-center">
@@ -40,6 +44,13 @@
                         <div class="flash-message"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="history"> 
+            <h1>History</h1>
+            <hr>
+            <div id="records">
+                <p>No History</p>
             </div>
         </div>
 
@@ -63,8 +74,10 @@
                         console.log(response);
                         let result = JSON.parse(response);
                         if(result['success']){
-                           $('div.flash-message').html("<p class='alert alert-success'> difference in days =" + result['days'] + "</p>");
+                        $('div.flash-message').html("<p class='alert alert-success'> difference in days =" + result['days'] + "</p>");
                         }
+                        // Refresh history
+                        renderHistory(event);
                     },
                     error:function(response){
                         // Default response HTTP 422 from laravel on form validation error
@@ -79,6 +92,34 @@
                     }
                 });
             });
+
+            $('#btn-date-history').on('click',function(event){
+                event.preventDefault();
+                console.log("history");
+                
+                renderHistory(event);
+            });
+
+            function renderHistory(){
+                $.ajax({
+                    url: "/date/history",
+                    type:"GET",
+                    data:{
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success:function(response){
+                        // console.log(response);
+                        $('div.history #records').html("");    
+                        let result = JSON.parse(response);
+                        $.each(result,function(key,value){
+                            let x = '<div class="card"><div class="card-body"><h5 class="card-title"> Days:'+ value['days']  +'</h5>'+
+                            '<p class="card-text">Start date : <strong>'+ value['start_date']  +'</strong></p>'+
+                            '<p class="card-text">end date : <strong>'+ value['end_date']  +'</strong></p></div>';
+                            $('div.history #records').append(x);
+                        });
+                    }
+                });
+            }
         </script>
     </body>
 </html>

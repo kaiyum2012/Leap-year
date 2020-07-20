@@ -1,4 +1,5 @@
 //
+$breakpoint-tablet: 768px;
 html, body {
     // background-color: #fff;
     // color: #636b6f;
@@ -13,6 +14,9 @@ html, body {
 
 .full-height {
     height: 100vh;
+    @media (max-width: 850px) {
+        height: 50vh;   
+    }
 }
 
 .flex-center {
@@ -21,6 +25,9 @@ html, body {
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
+    @media (max-width: 850px) {
+        
+    }
 }
 
 .position-ref {
@@ -41,6 +48,13 @@ html, body {
     font-size: 3.75rem;
     .sub-title{
         font-size: 2.75rem;
+    }
+
+    @media (max-width:325px) {
+        font-size: 1.75rem;
+        .sub-title{
+            font-size: 1.0rem;
+        }
     }
 }
 
@@ -66,4 +80,54 @@ input[type='date']{
 label{
     margin-right: 10px;
     font-size: 1.15rem;
+}
+
+.history{
+    padding-top: 20px;
+    padding-right: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: fit-content;
+    height: 100vh;
+    color: #333333;
+    text-align: right;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    @media (max-width: 850px) {
+        flex-direction: row;
+        width: 100vw;
+        height: 50vh;
+        left: 0;
+        bottom: 0;
+        align-items: flex-start;
+        text-align: left;
+        position: relative;
+    }
+}
+
+#records{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 850px) {
+        overflow: auto;
+        height: auto;
+        width: 100vw;
+        left: 0;
+        top: auto;
+        bottom: 0;
+        flex-direction: column;
+        transform: rotate(0deg);
+    }
+
+    .card{
+        margin: 10px;
+        @media (max-width: 850px) {
+            margin: 10px 20px 10px 20px;
+            
+        }
+    }
 }
