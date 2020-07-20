@@ -9,6 +9,7 @@
 - Ajax
 - Leap year Detection
 - Unit Testing 
+- Storing each calculation in a database
 ## License
 
 
