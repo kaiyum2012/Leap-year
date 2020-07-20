@@ -28,6 +28,7 @@ class DateController extends Controller
             $result->success = false;
             $result->error = $validator->errors()->toArray();
             // Session::flash('error', $result->error);
+
         }else{
             $start = new Date($req->sDate);
             $end = new Date($req->eDate);

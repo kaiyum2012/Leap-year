@@ -47,7 +47,6 @@ class DateCalculatorTest extends TestCase
         }
     }
 
-
     /**@test
      * @return void
      */
