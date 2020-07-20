@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::post('/date/calculate', 'DateController@calculate');
+Route::get('/date/history', 'DateController@history');

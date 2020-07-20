@@ -12,7 +12,15 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+     .sass('resources/sass/app.scss', 'public/css');
+
+// mix.scripts([
+//     'public/js/app.js',
+//     'resources/js/date-calc.js',
+//     'resources/js/date-history.js'
+// ],'public/js/app.js');
+
+// mix.sass('resources/sass/app.scss', 'public/css');
 
 var LiveReloadPlugin = require('webpack-livereload-plugin');
 

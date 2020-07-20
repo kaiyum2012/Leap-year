@@ -24,8 +24,8 @@ class DateDiffCalcRequest extends FormRequest
     public function rules()
     {
         return [
-            'sDate' =>'required|date',
-            'eDate'=>'required|date'
+            'sDate' => 'required|date',
+            'eDate' => 'required|date'
         ];
     }
 
