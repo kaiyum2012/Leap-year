@@ -58,14 +58,14 @@ class DateController extends Controller
             );
         }
         
-        return response(json_encode($result));
+        return response()->json($result);
     }
 
     public function History(){
 
         $records = DateHistory::orderBy('created_at','desc')->get();
        
-        return response(json_encode($records));
+        return response()->json($records);
     }
 }
  
